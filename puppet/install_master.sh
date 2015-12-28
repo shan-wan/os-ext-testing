@@ -147,5 +147,5 @@ sudo sed -i "s#\$layout_dir = '',#\$layout_dir = '/etc/zuul',#" /etc/puppet/modu
 sudo puppet apply --verbose $PUPPET_MODULE_PATH -e "class {'os_ext_testing::master': $CLASS_ARGS }"
 
 # Set PasswordAuthentication to yes
-sudo sed -i 's/^PasswordAuthentication\s*no\s*$/PasswordAuthentication yes/' sshd_config
+sudo sed -i 's/^PasswordAuthentication\s*no\s*$/PasswordAuthentication yes/' /etc/ssh/sshd_config
 sudo service ssh restart
