@@ -244,33 +244,33 @@ class os_ext_testing::master (
     notify => Exec['zuul-reload'],
   }
 
-  file { '/etc/zuul/logging.conf':
-    ensure => present,
-    source => 'puppet:///modules/openstack_project/zuul/logging.conf',
-    notify => Exec['zuul-reload'],
-  }
+# file { '/etc/zuul/logging.conf':
+#   ensure => present,
+#   source => 'puppet:///modules/openstack_project/zuul/logging.conf',
+#   notify => Exec['zuul-reload'],
+# }
 
-  file { '/etc/zuul/gearman-logging.conf':
-    ensure => present,
-    source => 'puppet:///modules/openstack_project/zuul/gearman-logging.conf',
-    notify => Exec['zuul-reload'],
-  }
+# file { '/etc/zuul/gearman-logging.conf':
+#   ensure => present,
+#   source => 'puppet:///modules/openstack_project/zuul/gearman-logging.conf',
+#   notify => Exec['zuul-reload'],
+# }
   
-  file { '/etc/zuul/merger-logging.conf':
-    ensure => present,
-    source => 'puppet:///modules/openstack_project/zuul/merger-logging.conf',
-  }
+# file { '/etc/zuul/merger-logging.conf':
+#   ensure => present,
+#   source => 'puppet:///modules/openstack_project/zuul/merger-logging.conf',
+# }
 
-  class { '::recheckwatch':
-    gerrit_server                => $upstream_gerrit_server,
-    gerrit_user                  => $upstream_gerrit_user,
-    recheckwatch_ssh_private_key => $upstream_gerrit_ssh_private_key,
-  }
+# class { '::recheckwatch':
+#   gerrit_server                => $upstream_gerrit_server,
+#   gerrit_user                  => $upstream_gerrit_user,
+#   recheckwatch_ssh_private_key => $upstream_gerrit_ssh_private_key,
+# }
 
-  file { '/var/lib/recheckwatch/scoreboard.html':
-    ensure  => present,
-    source  => 'puppet:///modules/openstack_project/zuul/scoreboard.html',
-    require => File['/var/lib/recheckwatch'],
-  }
+# file { '/var/lib/recheckwatch/scoreboard.html':
+#   ensure  => present,
+#   source  => 'puppet:///modules/openstack_project/zuul/scoreboard.html',
+#   require => File['/var/lib/recheckwatch'],
+# }
 }
 

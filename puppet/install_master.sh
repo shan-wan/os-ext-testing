@@ -11,15 +11,18 @@ DATA_REPO_INFO_FILE=$THIS_DIR/.data_repo_info
 DATA_PATH=$THIS_DIR/data
 OSEXT_PATH=$THIS_DIR/os-ext-testing
 OSEXT_REPO=https://github.com/jaypipes/os-ext-testing
-PUPPET_MODULE_PATH="--modulepath=$OSEXT_PATH/puppet/modules:/root/config/modules:/etc/puppet/modules"
+PUPPET_MODULE_PATH="--modulepath=$OSEXT_PATH/puppet/modules:$THIS_DIR/config/modules:/etc/puppet/modules"
 
 # Install Puppet and the OpenStack Infra Config source tree
 if [[ ! -e install_puppet.sh ]]; then
-  wget https://git.openstack.org/cgit/openstack-infra/config/plain/install_puppet.sh
-  sudo bash -xe install_puppet.sh
-  sudo git clone https://review.openstack.org/p/openstack-infra/config.git \
-    /root/config
-  sudo /bin/bash /root/config/install_modules.sh
+  git clone https://github.com/shan-wan/system-config config
+  cd config 
+  git remote add project-config https://github.com/shan-wan/project-config
+  git remote update
+  git checkout master
+  git reset --hard
+  sudo bash -xe $THIS_DIR/config/install_puppet.sh
+  sudo bash $THIS_DIR/config/install_modules.sh
 fi
 
 # Clone or pull the the os-ext-testing repository

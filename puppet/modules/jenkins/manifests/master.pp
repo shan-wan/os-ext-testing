@@ -46,7 +46,7 @@ class jenkins::master(
     include_src => false,
   }
 
-  apache::vhost { $vhost_name:
+  ::httpd::vhost { $vhost_name:
     port     => 443,
     docroot  => 'MEANINGLESS ARGUMENT',
     priority => '50',
@@ -60,7 +60,7 @@ class jenkins::master(
       group   => 'root',
       mode    => '0640',
       content => $ssl_cert_file_contents,
-      before  => Apache::Vhost[$vhost_name],
+      before  => ::httpd::vhost[$vhost_name],
     }
   }
 
@@ -71,7 +71,7 @@ class jenkins::master(
       mode    => '0640',
       content => $ssl_key_file_contents,
       require => Package['ssl-cert'],
-      before  => Apache::Vhost[$vhost_name],
+      before  => ::httpd::vhost[$vhost_name],
     }
   }
 
@@ -81,7 +81,7 @@ class jenkins::master(
       group   => 'root',
       mode    => '0640',
       content => $ssl_chain_file_contents,
-      before  => Apache::Vhost[$vhost_name],
+      before  => ::httpd::vhost[$vhost_name],
     }
   }
 
