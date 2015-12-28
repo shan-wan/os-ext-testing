@@ -9,12 +9,13 @@ THIS_DIR=`pwd`
 
 DATA_REPO_INFO_FILE=$THIS_DIR/.data_repo_info
 DATA_PATH=$THIS_DIR/data
+CONFIG=$THIS_DIR/config
 OSEXT_PATH=$THIS_DIR/os-ext-testing
 OSEXT_REPO=https://github.com/shan-wan/os-ext-testing
 PUPPET_MODULE_PATH="--modulepath=$OSEXT_PATH/puppet/modules:$THIS_DIR/config/modules:/etc/puppet/modules"
 
 # Install Puppet and the OpenStack Infra Config source tree
-if [[ ! -d $OSEXT_PATH ]]; then
+if [[ ! -d $CONFIG ]]; then
   git clone https://github.com/shan-wan/system-config config
   cd config 
   git remote add project-config https://github.com/shan-wan/project-config
