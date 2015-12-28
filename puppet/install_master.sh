@@ -10,11 +10,11 @@ THIS_DIR=`pwd`
 DATA_REPO_INFO_FILE=$THIS_DIR/.data_repo_info
 DATA_PATH=$THIS_DIR/data
 OSEXT_PATH=$THIS_DIR/os-ext-testing
-OSEXT_REPO=https://github.com/jaypipes/os-ext-testing
+OSEXT_REPO=https://github.com/shan-wan/os-ext-testing
 PUPPET_MODULE_PATH="--modulepath=$OSEXT_PATH/puppet/modules:$THIS_DIR/config/modules:/etc/puppet/modules"
 
 # Install Puppet and the OpenStack Infra Config source tree
-if [[ ! -e install_puppet.sh ]]; then
+if [[ ! -d $OSEXT_PATH ]]; then
   git clone https://github.com/shan-wan/system-config config
   cd config 
   git remote add project-config https://github.com/shan-wan/project-config
@@ -134,4 +134,7 @@ CLASS_ARGS="$CLASS_ARGS url_pattern => '$URL_PATTERN', "
 sudo mkdir -p /etc/jenkins_jobs/config
 sudo cp -r $DATA_PATH/etc/jenkins_jobs/config/* /etc/jenkins_jobs/config/
 
+sudo sed -i '/^\s*package/,/}/d;/^\s*service/,/}/d;/^\s*file/,/}/d' /etc/puppet/modules/httpd/manifests/init.pp
+sudo sed -i "s#\$layout_dir = '',#\$layout_dir = '/etc/zuul',#" /etc/puppet/modules/zuul/manifests/server.pp
+sudo a2enmod ssl rewrite status
 sudo puppet apply --verbose $PUPPET_MODULE_PATH -e "class {'os_ext_testing::master': $CLASS_ARGS }"

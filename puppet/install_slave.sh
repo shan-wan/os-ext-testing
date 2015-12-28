@@ -9,7 +9,7 @@ THIS_DIR=`pwd`
 DATA_REPO_INFO_FILE=$THIS_DIR/.data_repo_info
 DATA_PATH=$THIS_DIR/data
 OSEXT_PATH=$THIS_DIR/os-ext-testing
-OSEXT_REPO=https://github.com/jaypipes/os-ext-testing
+OSEXT_REPO=https://github.com/shan-wan/os-ext-testing
 PUPPET_MODULE_PATH="--modulepath=$OSEXT_PATH/puppet/modules:/root/config/modules:/etc/puppet/modules"
 
 # Install Puppet and the OpenStack Infra Config source tree
@@ -33,7 +33,7 @@ if [[ "$PULL_LATEST_OSEXT_REPO" == "1" ]]; then
 fi
 
 if [[ ! -e $DATA_PATH ]]; then
-    echo "Enter the URI for the location of your config data repository. Example: https://github.com/jaypipes/os-ext-testing-data"
+    echo "Enter the URI for the location of your config data repository. Example: https://github.com/shan-wan/os-ext-testing-data"
     read data_repo_uri
     if [[ "$data_repo_uri" == "" ]]; then
         echo "Data repository is required to proceed. Exiting."
