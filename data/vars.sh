@@ -1,4 +1,4 @@
-export UPSTREAM_GERRIT_HOST_PUBLIC_KEY="ssh-rsa xxxxxxxxxxxxxxxxxx"
+export UPSTREAM_GERRIT_HOST_PUBLIC_KEY=$([[ -s gerrit_key.pub ]]&&cat gerrit_key.pub)
 export GIT_EMAIL='sam.wan@emc.com'
 export GIT_NAME='Sam Wan'
 export UPSTREAM_GERRIT_USER=samwan
