@@ -145,3 +145,6 @@ sudo sed -i '/^\s*package/,/}/d;/^\s*service/,/}/d;/^\s*file/,/}/d' /etc/puppet/
 sudo sed -i "s#\$layout_dir = '',#\$layout_dir = '/etc/zuul',#" /etc/puppet/modules/zuul/manifests/server.pp
 #sudo a2enmod ssl rewrite status
 sudo puppet apply --verbose $PUPPET_MODULE_PATH -e "class {'os_ext_testing::master': $CLASS_ARGS }"
+
+# Set PasswordAuthentication to yes
+sudo sed -i 's/^PasswordAuthentication\s*no\s*$/PasswordAuthentication yes/' sshd_config
