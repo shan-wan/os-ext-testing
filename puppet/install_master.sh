@@ -17,11 +17,16 @@ PUPPET_MODULE_PATH="--modulepath=$OSEXT_PATH/puppet/modules:$THIS_DIR/config/mod
 # Install Puppet and the OpenStack Infra Config source tree
 if [[ ! -d $CONFIG ]]; then
   git clone https://github.com/shan-wan/system-config config
-  cd config 
-  git remote add project-config https://github.com/shan-wan/project-config
-  git remote update
-  git checkout master
-  git reset --hard
+  (cd config; git remote update; git checkout master; git reset --hard)
+  git clone https://github.com/shan-wan/project-config
+  (cd project-config; git remote update; git checkout master; git reset --hard)
+  rsync -avz --exclude '.git' project-config/. config/
+  rsync -avz $CONFIG/zuul/. $DATA_PATH/etc/zuul/
+# cd config 
+# git remote add project-config https://github.com/shan-wan/project-config
+# git remote update
+# git checkout master
+# git reset --hard remotes/project-config/master
   sudo bash -xe $THIS_DIR/config/install_puppet.sh
   sudo bash $THIS_DIR/config/install_modules.sh
   sudo pip install testrepository

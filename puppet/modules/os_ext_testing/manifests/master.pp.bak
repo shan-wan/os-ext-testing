@@ -235,8 +235,7 @@ class os_ext_testing::master (
 
   file { '/etc/zuul/openstack_functions.py':
     ensure => present,
-#   source => 'puppet:///modules/openstack_project/zuul/openstack_functions.py',
-    source  => "${data_repo_dir}/etc/zuul/openstack_functions.py",
+    source => 'puppet:///modules/openstack_project/zuul/openstack_functions.py',
     notify => Exec['zuul-reload'],
   }
 
