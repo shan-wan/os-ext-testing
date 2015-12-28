@@ -24,6 +24,7 @@ if [[ ! -d $CONFIG ]]; then
   git reset --hard
   sudo bash -xe $THIS_DIR/config/install_puppet.sh
   sudo bash $THIS_DIR/config/install_modules.sh
+  sudo pip install testrepository
 fi
 
 # Clone or pull the the os-ext-testing repository
@@ -137,5 +138,5 @@ sudo cp -r $DATA_PATH/etc/jenkins_jobs/config/* /etc/jenkins_jobs/config/
 
 sudo sed -i '/^\s*package/,/}/d;/^\s*service/,/}/d;/^\s*file/,/}/d' /etc/puppet/modules/httpd/manifests/init.pp
 sudo sed -i "s#\$layout_dir = '',#\$layout_dir = '/etc/zuul',#" /etc/puppet/modules/zuul/manifests/server.pp
-sudo a2enmod ssl rewrite status
+#sudo a2enmod ssl rewrite status
 sudo puppet apply --verbose $PUPPET_MODULE_PATH -e "class {'os_ext_testing::master': $CLASS_ARGS }"

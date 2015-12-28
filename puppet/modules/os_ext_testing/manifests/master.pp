@@ -30,15 +30,10 @@ class os_ext_testing::master (
   # module because zuul also defines these resource blocks and Puppet barfs.
   # Upstream probably never noticed this because they do not deploy Zuul and
   # Jenkins on the same node...
-  a2mod { 'rewrite':
-    ensure => present,
-  }
-  a2mod { 'proxy':
-    ensure => present,
-  }
-  a2mod { 'proxy_http':
-    ensure => present,
-  }
+  apache::mod { 'rewrite': }
+  apache::mod { 'proxy': }
+  apache::mod { 'proxy_http': }
+  apache::mod { 'ssl': }
 
   if $ssl_chain_file_contents != '' {
     $ssl_chain_file = '/etc/ssl/certs/intermediate.pem'
