@@ -21,7 +21,7 @@ if [[ ! -d $CONFIG ]]; then
   git remote add project-config https://github.com/shan-wan/project-config
   git remote update
   git checkout master
-  git reset --hard
+  git reset --hard remotes/project-config/master
   sudo bash -xe $THIS_DIR/config/install_puppet.sh
   sudo bash $THIS_DIR/config/install_modules.sh
   sudo pip install testrepository
